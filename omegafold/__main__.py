@@ -37,11 +37,11 @@ from . import pipeline
 # =============================================================================
 
 @torch.no_grad()
-def main():
+def main(inputFile, outputDirectory):
     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
     args, state_dict, forward_config = pipeline.get_args()
     # create the output directory
-    os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(outputDirectory, exist_ok=True)
     # get the model
     logging.info(f"Constructing OmegaFold")
     model = of.OmegaFold(of.make_config(args.model))
@@ -54,18 +54,18 @@ def main():
     model.eval()
     model.to(args.device)
 
-    logging.info(f"Reading {args.input_file}")
+    logging.info(f"Reading {inputFile}")
     for i, (input_data, save_path) in enumerate(
             pipeline.fasta2inputs(
-                args.input_file,
+                inputFile,
                 num_pseudo_msa=args.num_pseudo_msa,
-                output_dir=args.output_dir,
+                output_dir=outputDirectory,
                 device=args.device,
                 mask_rate=args.pseudo_msa_mask_rate,
                 num_cycle=args.num_cycle,
             )
     ):
-        logging.info(f"Predicting {i + 1}th chain in {args.input_file}")
+        logging.info(f"Predicting {i + 1}th chain in {inputFile}")
         logging.info(
             f"{len(input_data[0]['p_msa'][0])} residues in this chain."
         )

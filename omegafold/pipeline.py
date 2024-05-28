@@ -323,23 +323,23 @@ def get_args() -> typing.Tuple[
         by issuing the general command with only model number chosen (1-3).
         """
     )
-    parser.add_argument(
-        'input_file', type=lambda x: os.path.expanduser(str(x)),
-        help=
-        """
-        The input fasta file
-        """
-    )
-    parser.add_argument(
-        'output_dir', type=lambda x: os.path.expanduser(str(x)),
-        help=
-        """
-        The output directory to write the output pdb files. 
-        If the directory does not exist, we just create it. 
-        The output file name follows its unique identifier in the 
-        rows of the input fasta file"
-        """
-    )
+    # parser.add_argument(
+    #     'input_file', default="", type=lambda x: os.path.expanduser(str(x)),
+    #     help=
+    #     """
+    #     The input fasta file
+    #     """
+    # )
+    # parser.add_argument(
+    #     'output_dir', default="", type=lambda x: os.path.expanduser(str(x)),
+    #     help=
+    #     """
+    #     The output directory to write the output pdb files. 
+    #     If the directory does not exist, we just create it. 
+    #     The output file name follows its unique identifier in the 
+    #     rows of the input fasta file"
+    #     """
+    # )
     parser.add_argument(
         '--num_cycle', default=10, type=int,
         help="The number of cycles for optimization, default to 10"
